@@ -1,11 +1,11 @@
 SOURCE_FILES=$(shell find lib/ -type f -name '*.c')
-BINARY_FILES=$(patsubst lib/%.c, bin/%.o, $(SOURCE_FILES))
+BINARY_FILES=$(patsubst lib/%.c, bin/%, $(SOURCE_FILES))
 
 all: $(BINARY_FILES)
 
-bin/%.o: lib/%.c
+bin/%: lib/%.c
 	@mkdir -p "$(@D)"
-	@gcc -o "$@" "$<"
+	@gcc -Wall -std=c11 -o "$@" "$<"
 
 clean:
 	@rm -rf bin/*
